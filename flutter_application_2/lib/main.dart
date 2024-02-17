@@ -1,11 +1,28 @@
+import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/home.dart';
 import 'package:flutter_application_2/notificationPage.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'MainPage.dart';
 import 'package:flutter_application_2/settingPage.dart';
+import 'notificationList.dart';
 
-void main() {
+void main() async {
+  await AwesomeNotifications().initialize(null, [
+    NotificationChannel(
+        channelKey: 'channelKey',
+        channelName: 'channelName',
+        channelDescription: 'channelDescription',
+        channelGroupKey: 'group_key')
+  ], channelGroups: [
+    NotificationChannelGroup(
+        channelGroupKey: 'group_key', channelGroupName: 'channelGroupName')
+  ]);
+  bool notificationAllowed =
+      await AwesomeNotifications().isNotificationAllowed();
+  if (!notificationAllowed) {
+    AwesomeNotifications().requestPermissionToSendNotifications();
+  }
   runApp(MyApp());
 }
 
@@ -31,6 +48,19 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
+
+  @override
+  void initState() {
+    AwesomeNotifications().setListeners(
+        onActionReceivedMethod: notificationController.onActionReceivedMethod,
+        onNotificationCreatedMethod:
+            notificationController.onNotificationCreatedMethod,
+        onNotificationDisplayedMethod:
+            notificationController.onNotificationDisplayedMethod,
+        onDismissActionReceivedMethod:
+            notificationController.onActionReceivedMethod);
+    super.initState();
+  }
   int _selectedIndex = 0;
 
   final List<Widget> _pages = <Widget>[

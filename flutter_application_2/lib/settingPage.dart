@@ -5,21 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 void main() async {
-  await AwesomeNotifications().initialize(null, [
-    NotificationChannel(
-        channelKey: 'channelKey',
-        channelName: 'channelName',
-        channelDescription: 'channelDescription',
-        channelGroupKey: 'group_key')
-  ], channelGroups: [
-    NotificationChannelGroup(
-        channelGroupKey: 'group_key', channelGroupName: 'channelGroupName')
-  ]);
-  bool notificationAllowed =
-      await AwesomeNotifications().isNotificationAllowed();
-  if (!notificationAllowed) {
-    AwesomeNotifications().requestPermissionToSendNotifications();
-  }
+  
   runApp(const MyApp());
 }
 
@@ -64,18 +50,7 @@ class SettingPage extends StatefulWidget {
 }
 
 class _SettingPageState extends State<SettingPage> {
-  @override
-  void initState() {
-    AwesomeNotifications().setListeners(
-        onActionReceivedMethod: notificationController.onActionReceivedMethod,
-        onNotificationCreatedMethod:
-            notificationController.onNotificationCreatedMethod,
-        onNotificationDisplayedMethod:
-            notificationController.onNotificationDisplayedMethod,
-        onDismissActionReceivedMethod:
-            notificationController.onActionReceivedMethod);
-    super.initState();
-  }
+  
 
   @override
   Widget build(BuildContext context) {
@@ -108,7 +83,7 @@ class _BodyState extends State<Body> {
       ),
       // Other widgets go below the image in the Stack
       Positioned(
-          top: 250, // Adjust the top position to move the Column down
+          top: 170, // Adjust the top position to move the Column down
           left: 0,
           right: 0,
           child: Center(
