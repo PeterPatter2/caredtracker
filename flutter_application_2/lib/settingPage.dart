@@ -83,7 +83,7 @@ class _BodyState extends State<Body> {
       ),
       // Other widgets go below the image in the Stack
       Positioned(
-          top: 170, // Adjust the top position to move the Column down
+          top: 250, // Adjust the top position to move the Column down
           left: 0,
           right: 0,
           child: Center(

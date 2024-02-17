@@ -2,6 +2,7 @@ import 'package:awesome_notifications/awesome_notifications.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/home.dart';
 import 'package:flutter_application_2/notificationPage.dart';
+import 'package:flutter_application_2/stats.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'MainPage.dart';
 import 'package:flutter_application_2/settingPage.dart';
@@ -48,7 +49,7 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-
+  stats s = stats();
   @override
   void initState() {
     AwesomeNotifications().setListeners(
@@ -59,6 +60,31 @@ class _MyHomePageState extends State<MyHomePage> {
             notificationController.onNotificationDisplayedMethod,
         onDismissActionReceivedMethod:
             notificationController.onActionReceivedMethod);
+            if (s.getBpm() > 90){
+      AwesomeNotifications().createNotification(
+                      content: NotificationContent(
+                          id: 1,
+                          channelKey: 'channelKey',
+                          title: "แจ้งเตือน",
+                          body: "อัตราการเต้นของหัวใจผิดปกติ"));
+    }
+    
+    if (s.getTemp() > 40){
+      AwesomeNotifications().createNotification(
+                      content: NotificationContent(
+                          id: 1,
+                          channelKey: 'channelKey',
+                          title: "แจ้งเตือน",
+                          body: "อุณหภูมิร่างกายสูงกว่าปกติ"));
+    }
+    if (s.getO2() < 70){
+      AwesomeNotifications().createNotification(
+                      content: NotificationContent(
+                          id: 1,
+                          channelKey: 'channelKey',
+                          title: "แจ้งเตือน",
+                          body: "ปริมาณออกซิเจนในเลือดต่ำกว่าปกติ"));
+    }
     super.initState();
   }
   int _selectedIndex = 0;

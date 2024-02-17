@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'stats.dart';
 
 class home extends StatelessWidget {
   @override
@@ -164,6 +165,9 @@ class CustomContainer extends StatelessWidget {
 // This is a mock function for fetching data from the cloud.
 // Replace it with your actual function to fetch data.
 Future<String> fetchDataFromCloud(String dataType) async {
+  stats s = stats();
+
+
   // Simulate fetching data from the cloud with some delay
   await Future.delayed(Duration(seconds: 2));
 
@@ -171,11 +175,11 @@ Future<String> fetchDataFromCloud(String dataType) async {
   // For demonstration purposes, return some dummy data based on the dataType
   switch (dataType) {
     case 'heart_rate':
-      return 'อัตรการเต้นของหัวใจ : ' + '\n' + '         80 bpm';
+      return 'อัตรการเต้นของหัวใจ : ' + '\n' + '         ' + s.getBpm().toString() + ' bpm';
     case 'oxygen_level':
-      return 'ระดับออกซิเจนในโลหิต : ' + '\n' + '         98 %';
+      return 'ระดับออกซิเจนในโลหิต : ' + '\n' + '         ' + s.getO2().toString() + '%';
     case 'body_temperature':
-      return 'อุณภูมิร่างกาย : ' + '\n' + '         36.5°C';
+      return 'อุณภูมิร่างกาย : ' + '\n' + '         ' + s.getTemp().toString() + ' °C';
     default:
       return 'No data';
   }
